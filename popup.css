@@ -1,0 +1,44 @@
+
+#displayWithValidURL {
+  display: none;
+}
+
+#displayWithInvalidURL {
+  display: none;
+}
+
+#errorMsg {
+  display: none;
+  color: red;
+}
+
+#board {
+  display: none;
+}
+
+#flippedBoard {
+  display: none;
+}
+
+table { 
+  border-spacing: 0; 
+  border-collapse: collapse; 
+}
+
+th {
+  width: 2em; 
+  height: 1.55em;
+}
+
+td { 
+  border: 1px solid; 
+}
+
+.light { 
+  background: #eee; 
+}
+
+.dark { 
+  background: #000; 
+}
+

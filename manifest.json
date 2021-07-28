@@ -1,0 +1,29 @@
+{
+  "name": "Chess.com Voice Input",
+  "description": "Makes it easier to move pieces on Chess.com using your computer's voice input.",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "permissions": ["tabs"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "48": "/images/icon48.png",
+      "128": "/images/icon128.png"
+    }
+  },
+  "icons": {
+    "48": "/images/icon48.png",
+    "128": "/images/icon128.png"
+  },
+  "content_scripts": [ 
+    { 
+      "js": ["contentScript.js"],
+      "matches": [
+        "https://www.chess.com/analysis/game/live/*",
+        "https://www.chess.com/live*",
+        "https://www.chess.com/analysis/game/daily/*",
+        "https://www.chess.com/game/daily/*"
+      ]
+    }
+  ]
+}
