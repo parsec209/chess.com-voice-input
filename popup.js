@@ -1,4 +1,3 @@
-
 const displayWithValidURL = document.getElementById('displayWithValidURL')
 const displayWithInvalidURL = document.getElementById('displayWithInvalidURL')
 const coordinate = document.getElementById('coordinate')
@@ -10,6 +9,7 @@ let isFlipped = false
 
 
 
+//Loads the move input interface only within the specified URLs; otherwise the interface will display a message listing the valid URLs 
 window.onload = function() {
   chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
     const validURLs = [
@@ -28,9 +28,14 @@ window.onload = function() {
 }
 
 
+//Listener for the coordinate input field, which will send the coordinate values to the content script
 coordinate.addEventListener('input', (e) => {
+  //White spaces can be entered, but are ignored in the final value
   const value = e.target.value.replace(/ /g,'')
   const numeralValue = parseInt(value, 10)
+  //The moment two characters (not including white spaces) are entered, the value is stored and the input field is automatically emptied  
+  //This saves the user from having to manually press or say enter 
+  //Only two digit integers, between 11-88 (inclusive), will be sent to the content script, everything else will be ignored
   if (value.length === 2 && numeralValue >= 11 && numeralValue <= 88 && !value.includes('9') && !value.includes('0')) {
     coordinate.value = ''
     chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
@@ -50,17 +55,22 @@ coordinate.addEventListener('input', (e) => {
 })
 
 
+//A button that either displays or hides the coordinate board when clicked
 displayCoords.addEventListener('click', () => {
   errorMsg.style.display = 'none'
+
+  //If coordinate board is hidden, button click will display the board  
   if ((board.style.display === 'none' || !board.style.display) && (flippedBoard.style.display === 'none' || !flippedBoard.style.display)) {
     chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-      console.log(tabs[0].url)
+      //Request is sent to the content script to get the class list for the board; this will let the extension know whether the board is flipped or not 
       chrome.tabs.sendMessage(tabs[0].id, { request: 'getBoardClassList' }, response => {
         if (response && response.boardClassList) {
           displayCoords.textContent = 'Hide coordinates'
+          //If board is flipped, the coordinate board will be displayed from black's perspective
           if (Object.values(response.boardClassList).includes('flipped')) {
             isFlipped = true
             flippedBoard.style.display = 'block'
+          //Otherwise, the coordinate board will be displayed from white's perspective
           } else {
             isFlipped = false
             board.style.display = 'block'
@@ -71,6 +81,8 @@ displayCoords.addEventListener('click', () => {
         }
       })
     })
+    
+  //If coordinate board is displayed, button click will hide the board
   } else {
     displayCoords.textContent = 'Show coordinates'
     board.style.display = 'none'
