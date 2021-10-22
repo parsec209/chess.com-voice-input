@@ -35,7 +35,7 @@ coordinate.addEventListener('input', (e) => {
   const numeralValue = parseInt(value, 10)
   //The moment two characters (not including white spaces) are entered, the value is stored and the input field is automatically emptied  
   //This saves the user from having to manually press or say enter 
-  //Only two digit integers, between 11-88 (inclusive), will be sent to the content script, everything else will be ignored
+  //Only two digit integers between 11-88 (inclusive), and excluding numbers containing a zero or nine, will be sent to the content script, everything else will be ignored
   if (value.length === 2 && numeralValue >= 11 && numeralValue <= 88 && !value.includes('9') && !value.includes('0')) {
     coordinate.value = ''
     chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
