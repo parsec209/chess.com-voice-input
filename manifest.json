@@ -1,6 +1,6 @@
 {
   "name": "Chess.com Voice Input Facilitator",
-  "description": "Enter simple coordinates to move the pieces on Chess.com, making it easy to use your computer's voice recognition software during a game."
+  "description": "Simple coordinate entry to simulate square clicks on Chess.com, in turn facilitating voice recognition software use during a game."
   "version": "1.0.0",
   "manifest_version": 3,
   "permissions": ["tabs"],
