@@ -15,7 +15,10 @@
   },
   "content_scripts": [ 
     { 
-      "js": ["./src/index.js"]
+      "js": ["./src/index.js"],
+      "matches": [
+        "https://www.chess.com/*"
+      ]
     }
   ]
 }
